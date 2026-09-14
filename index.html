@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Cache Control: Forces the browser to completely ignore old cached redirect scripts -->
+    <!-- Instructs the network environment to never pull cached code variants -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- The Locked Google Classroom Mask -->
+    <!-- The Google Classroom Mask -->
     <title>Home</title>
     <link id="favicon" rel="icon" type="image/x-icon" href="https://gstatic.com">
 
@@ -34,8 +34,9 @@
 <body>
 
     <!-- 
-      Embedded directly on your native GitHub Pages domain. 
-      Omitting 'allow-popups' locks the application inside this single tab.
+      The absolute URL target has an added '?v=2' tag at the end.
+      This forces the system to treat the app as an entirely fresh resource,
+      instantly breaking it out of the old about:blank loop.
     -->
     <iframe 
         class="app-container"
@@ -44,7 +45,7 @@
     </iframe>
 
     <script>
-        // Standard loop to ensure the Google Classroom title stays locked
+        // Keeps the Classroom title structurally locked inside the single tab
         setInterval(function() {
             if (document.title !== "Home") {
                 document.title = "Home";
