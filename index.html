@@ -37,61 +37,47 @@
 </head>
 <body>
 
-    <!-- 1. Fallback launcher button if popups require a user click gesture -->
+    <!-- Fallback click button if the browser requires an active click gesture -->
     <button class="launcher-btn" onclick="launchCloakedApp()">Open Dashboard</button>
 
     <script>
         function launchCloakedApp() {
-            // Open a blank tab
+            // The raw application code structure
+            var rawHTML = `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="icon" type="image/x-icon" href="https://gstatic.com">
+    <style>
+        html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #0b0b0e; }
+        iframe { width: 100%; height: 100%; border: none; display: block; }
+    </style>
+</head>
+<body>
+    <iframe src="https://jsdelivr.net" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+</body>
+</html>`;
+
+            // Convert the code directly into a clean base64 data stream to stop infinite loading
+            var base64HTML = btoa(unescape(encodeURIComponent(rawHTML)));
+            var dataURL = "data:text/html;base64," + base64HTML;
+
+            // Open the window natively using the data frame
             var win = window.open();
             if (!win) {
                 alert("Please allow popups for this site to enable cloaking.");
                 return;
             }
 
-            // Define the complete application structure to inject into about:blank
-            var appHTML = `
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <title>Home</title>
-                    <link rel="icon" type="image/x-icon" href="https://gstatic.com">
-                    <style>
-                        html, body {
-                            margin: 0;
-                            padding: 0;
-                            width: 100%;
-                            height: 100%;
-                            overflow: hidden;
-                            background-color: #0b0b0e;
-                        }
-                        iframe {
-                            width: 100%;
-                            height: 100%;
-                            border: none;
-                            display: block;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <iframe 
-                        src="https://jsdelivr.net" 
-                        sandbox="allow-scripts allow-same-origin allow-forms">
-                    </iframe>
-                </body>
-                </html>
-            `;
+            // Route the frame context directly
+            win.location.href = dataURL;
 
-            // Inject the code into the about:blank window document
-            win.document.write(appHTML);
-            win.document.close();
-
-            // Redirect the original repository tab to a safe webpage (like Google)
+            // Instantly wipe the GitHub repository URL from the current tab history
             window.location.replace("https://www.google.com");
         }
 
-        // 2. Attempt to launch automatically on page load
+        // Automatic run attempt
         window.onload = function() {
             launchCloakedApp();
         };
