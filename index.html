@@ -3,84 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- The Google Classroom Mask -->
     <title>Home</title>
-    <link rel="icon" type="image/x-icon" href="https://gstatic.com">
+    <link id="favicon" rel="icon" type="image/x-icon" href="https://gstatic.com">
+
     <style>
-        body {
+        html, body {
             margin: 0;
             padding: 0;
-            background-color: #0b0b0e;
-            font-family: system-ui, -apple-system, sans-serif;
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             overflow: hidden;
+            background-color: #0b0b0e;
         }
-        .launcher-btn {
-            padding: 15px 30px;
-            font-size: 18px;
-            font-weight: bold;
-            background-color: #1a73e8;
-            color: white;
+
+        /* Full screen embed container */
+        .app-container {
+            width: 100%;
+            height: 100%;
             border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: background 0.2s ease;
-        }
-        .launcher-btn:hover {
-            background-color: #1557b0;
+            display: block;
         }
     </style>
 </head>
 <body>
 
-    <!-- Fallback click button if the browser requires an active click gesture -->
-    <button class="launcher-btn" onclick="launchCloakedApp()">Open Dashboard</button>
+    <!-- 
+      Embedded directly on GitHub pages to bypass domain blocks.
+      Omitting 'allow-popups' enforces the anti-tab rule you requested.
+    -->
+    <iframe 
+        class="app-container"
+        src="https://jsdelivr.net"
+        sandbox="allow-scripts allow-same-origin allow-forms">
+    </iframe>
 
     <script>
-        function launchCloakedApp() {
-            // The raw application code structure
-            var rawHTML = `<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-    <link rel="icon" type="image/x-icon" href="https://gstatic.com">
-    <style>
-        html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #0b0b0e; }
-        iframe { width: 100%; height: 100%; border: none; display: block; }
-    </style>
-</head>
-<body>
-    <iframe src="https://jsdelivr.net" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
-</body>
-</html>`;
-
-            // Convert the code directly into a clean base64 data stream to stop infinite loading
-            var base64HTML = btoa(unescape(encodeURIComponent(rawHTML)));
-            var dataURL = "data:text/html;base64," + base64HTML;
-
-            // Open the window natively using the data frame
-            var win = window.open();
-            if (!win) {
-                alert("Please allow popups for this site to enable cloaking.");
-                return;
+        // Keeps the title and icon locked to prevent any leakages
+        setInterval(function() {
+            if (document.title !== "Home") {
+                document.title = "Home";
             }
-
-            // Route the frame context directly
-            win.location.href = dataURL;
-
-            // Instantly wipe the GitHub repository URL from the current tab history
-            window.location.replace("https://www.google.com");
-        }
-
-        // Automatic run attempt
-        window.onload = function() {
-            launchCloakedApp();
-        };
+        }, 500);
     </script>
 
 </body>
