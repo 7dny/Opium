@@ -25,12 +25,20 @@
         appFrame.style.overflow = 'hidden';
         appFrame.style.zIndex = '999999';
 
-        // 2. Clear out the current window completely
+        // 2. Clear out the current window completely to establish the blank environment
         document.open();
         document.write('');
         document.close();
 
-        // 3. Append the frame to the newly cleared, blank environment
+        // 3. Re-inject the favicon into the newly cleared <head> using an inline SVG Data URI
+        const link = document.createElement('link');
+        link.rel = 'icon';
+        link.type = 'image/svg+xml';
+        // This converts the black asterisk shape into a vector string so the browser displays it in the tab
+        link.href = `data:image/svg+xml;utf8,<svg xmlns="http://w3.org" viewBox="0 0 100 100"><path d="M42 12h16v24l20-12 8 14-20 12 20 12-8 14-20-12v24H42V64L22 76l-8-14 20-12-20-12 8-14 20 12V12z" fill="black"/></svg>`;
+        document.head.appendChild(link);
+
+        // 4. Append the frame to the newly cleared environment
         document.body.style.margin = '0';
         document.body.style.backgroundColor = '#000000';
         document.body.appendChild(appFrame);
