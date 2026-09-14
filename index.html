@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        /* Ensures the application takes up 100% of the viewport seamlessly */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #0b0b0e; /* Matches native background */
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        /* Clean, borderless application embedding frame */
+        .app-container {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!--
+      By serving from your own GitHub Pages domain and omitting 'allow-popups', 
+      the browser strictly prohibits the app from launching outward links or new tabs.
+    -->
+    <iframe 
+        class="app-container"
+        src="https://jsdelivr.net"
+        sandbox="allow-scripts allow-same-origin allow-forms">
+    </iframe>
+
+</body>
+</html>
